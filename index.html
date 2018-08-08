@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>OLED Designer</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="vue-2.5.16.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+    <div id="app">
+
+      <h1>Helix / crkbd family OLED builder</h1>
+
+      <hr />
+
+      <section id="glyphList">
+        <h2>グリフ</h2>
+
+        <div class="glyphContainer">
+          <p v-if="glyphs.length">
+            Glyph index: {{ hoverredGlyph ? "0x" + hoverredGlyph.toString(16) : "-" }}
+          </p>
+          <div v-for="glyph, ix in glyphs" class="glyph" @mousemove="hoverGlyph(ix)" @click="selectGlyph(ix)">
+            <div v-for="column, x in glyph" class="glyphCol">
+              <div v-for="cell, y in column" :class="[ 'glyphCell', (cell ? 'b' : 'w') ]">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p>Load glcdfont.c: <input type="file" @change="loadGlyph"></p>
+        <p>Save glcdfont.c: <button @click="saveGlyph">GO</button></p>
+      </section>
+
+      <section v-if="selectedGlyph != null" id="glyphEdit">
+        <h3>選択中のグリフ</h3>
+        <div class="glyph large">
+          <div v-for="column, x in glyphs[selectedGlyph]" class="glyphCol">
+            <div v-for="cell, y in column"
+                 :class="[ 'glyphCell', (cell ? 'b' : 'w'), (x == 5 || y == 7 ? 'edge' : '') ]"
+                 @click="clickGlyphCell(x, y)">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="sceneList">
+        <h2>シーン</h2>
+
+        <div class="sceneContainer">
+          <div v-for="scene, ix in scenes" class="scene glyphContainer">
+            <div v-for="sceneRow, y in scene">
+              <div v-for="sceneCell, x in sceneRow" class="glyph" @click="putGlyph(ix, x, y)">
+                <div v-for="column in glyphs[sceneCell]" class="glyphCol">
+                  <div v-for="cell in column" :class="[ 'glyphCell', (cell ? 'b' : 'w') ]">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p><button @click="addScene">追加＋</button></p>
+
+        <p>Load scenes.c: <input type="file" @change="loadScenes"></p>
+        <p>Save scenes.c: <button @click="saveScenes">GO</button></p>
+      </section>
+
+    </div>
+    <script src="script.js"></script>
+  </body>
+
+</html>

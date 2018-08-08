@@ -1,0 +1,24 @@
+.glyphContainer { line-height: 0; }
+
+.glyph { display: inline-block; height: 40px; width: 30px; }
+.glyph .glyphCol { display: inline-block; width: 5px; }
+.glyph .glyphCell { height: 5px; width: 5px; }
+.glyph .glyphCell.b { background-color: black; }
+.glyph .glyphCell.edge:not(.b) { background-color: gainsboro; }
+
+.glyph.large { height: 160px; width: 120px; }
+.glyph.large .glyphCol { width: 20px; }
+.glyph.large .glyphCell { height: 20px; width: 20px; border: 1px solid gainsboro; }
+
+.sceneContainer > * { margin: 6px; }
+
+.scene { display: inline-block; background-color: black; border: 6px solid black; }
+.scene .glyph { height: 16px; width: 12px; }
+.scene .glyphCol { width: 2px; }
+.scene .glyphCell { height: 2px; width: 2px; }
+.scene .glyphCell.b { background-color: white; }
+
+#glyphList .glyph { border: 1px solid gainsboro; }
+#glyphList .glyph:hover { border-color: blue; cursor: pointer; }
+#glyphEdit .glyphCell:hover { border-color: blue; cursor: pointer; }
+#sceneList .glyph:hover { background-color: darkgrey; cursor: pointer; }
