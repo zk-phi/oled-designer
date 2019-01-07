@@ -41,6 +41,16 @@ var vm = new Vue({
         selectGlyph: function (ix) {
             vm.selectedGlyph = ix;
         },
+        clearGlyph: function () {
+            vm.$set(vm.glyphs, vm.selectedGlyph, [
+                [0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0],
+            ]);
+        },
         clickGlyphCell: function (x, y) {
             vm.$set(vm.glyphs[vm.selectedGlyph][x], y, vm.glyphs[vm.selectedGlyph][x][y] ? 0 : 1);
         },
